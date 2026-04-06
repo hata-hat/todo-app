@@ -1,0 +1,25 @@
+<!DOCTYPE html>	
+<html>
+<head>	
+    <title>ToDoアプリ</title>	
+</head>
+<body>	
+    <h1>ToDoアプリ</h1>	
+    <p>ここにタスクが表示されます</p>	
+</body>
+</html>
+
+<form method="POST">
+    <label>タスクを入力してください</label><br>
+    <input type="text" name="task" placeholder="例：買い物に行く"style="padding:5px; width:200px;">
+    <button type="submit">追加</button>
+</form>
+
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task[1] }}
+        <a href="{{ url_for('delete', task_id=task[0]) }}">削除</a>
+    </li>
+    {% endfor %}
+</ul>

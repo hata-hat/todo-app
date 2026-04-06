@@ -1,0 +1,27 @@
+<!DOCTYPE html>	#HTML5で書くことを宣言
+<html>	
+<head>	#ページの設定、タイトル
+    <title>ToDoアプリ</title>	#タイトル表示
+</head>
+<body>	#ブラウザに表示される部分
+    <h1>ToDoアプリ</h1>		#見出し
+    <p>ここにタスクが表示されます</p>	#段落
+</body>
+</html>
+
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)	#Flaskアプリを作る準備
+tasks = []	#タスクを保存する簡易リスト
+
+@app.route("/", methods=["GET", "POST"])	#このURLにアクセスした際に以下の関数を実行、GETでページ表示、POSTでフォーム送信
+def index():
+    if request.method == "POST":	#フォームから送信された際
+        task = request.form.get("task")	#入力値を取得
+        if task:
+            tasks.append(task)	
+    return render_template("index.html", tasks=tasks)	#index.htmlを表示、リストを渡す
+
+if __name__ == "__main__":	
+    app.run(debug=True)	#デバッグモードで起動
